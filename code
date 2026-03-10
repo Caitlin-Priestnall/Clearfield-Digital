@@ -1,0 +1,2347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Clearfield Digital</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  /* ── Reset & Base ── */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --teal:       #1A7A6E;
+    --teal-dark:  #0F5A50;
+    --teal-light: #E8F4F2;
+    --teal-mid:   #A8D5CE;
+    --dark:       #1C2B2A;
+    --accent:     #E07B3A;
+    --accent-lt:  #FDF0E8;
+    --white:      #FFFFFF;
+    --off-white:  #F8FAFA;
+    --grey-lt:    #F2F5F5;
+    --grey-mid:   #C8D4D3;
+    --text:       #3A4A49;
+    --text-lt:    #6A8280;
+    --serif:      'DM Serif Display', Georgia, serif;
+    --sans:       'DM Sans', system-ui, sans-serif;
+    --nav-h:      72px;
+    --max:        1160px;
+    --radius:     4px;
+    --ease:       cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--sans);
+    font-size: 17px;
+    line-height: 1.7;
+    color: var(--text);
+    background: var(--white);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  img { display: block; max-width: 100%; }
+  a { color: inherit; text-decoration: none; }
+
+  .container { max-width: var(--max); margin: 0 auto; padding: 0 32px; }
+
+  /* ── Pages ── */
+  .page { display: none; }
+  .page.active { display: block; }
+
+  /* ── NAV ── */
+  nav {
+    position: sticky; top: 0; z-index: 100;
+    height: var(--nav-h);
+    background: var(--white);
+    border-bottom: 1px solid var(--grey-mid);
+    display: flex; align-items: center;
+  }
+
+  .nav-inner {
+    max-width: var(--max); margin: 0 auto; padding: 0 32px;
+    width: 100%;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+
+  .nav-logo {
+    font-family: var(--sans);
+    font-size: 17px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    cursor: pointer;
+    display: flex; align-items: center; gap: 6px;
+  }
+
+  .nav-logo .cd { color: var(--teal); font-weight: 700; font-size: 19px; }
+  .nav-logo .slash { color: var(--grey-mid); }
+
+  .nav-links {
+    display: flex; align-items: center; gap: 36px;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--text-lt);
+    letter-spacing: 0.01em;
+    transition: color 0.2s;
+    cursor: pointer;
+  }
+
+  .nav-links a:hover,
+  .nav-links a.active { color: var(--teal); }
+
+  .nav-links a.active {
+    border-bottom: 2px solid var(--teal);
+    padding-bottom: 2px;
+  }
+
+  .nav-cta {
+    background: var(--teal);
+    color: var(--white) !important;
+    padding: 10px 22px;
+    border-radius: var(--radius);
+    font-weight: 600 !important;
+    font-size: 14px !important;
+    transition: background 0.2s !important;
+  }
+  .nav-cta:hover { background: var(--teal-dark) !important; color: var(--white) !important; }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--dark);
+    padding: 64px 0 40px;
+    margin-top: 0;
+  }
+
+  .footer-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 48px;
+    padding-bottom: 48px;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+  }
+
+  .footer-brand .logo {
+    font-family: var(--sans);
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--teal);
+    margin-bottom: 12px;
+  }
+
+  .footer-brand p {
+    font-size: 14px;
+    color: var(--teal-mid);
+    line-height: 1.7;
+    max-width: 260px;
+  }
+
+  .footer-col h4 {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--white);
+    margin-bottom: 16px;
+  }
+
+  .footer-col ul { list-style: none; }
+
+  .footer-col ul li {
+    margin-bottom: 10px;
+  }
+
+  .footer-col ul li a {
+    font-size: 14px;
+    color: var(--teal-mid);
+    cursor: pointer;
+    transition: color 0.2s;
+  }
+
+  .footer-col ul li a:hover { color: var(--white); }
+
+  .footer-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 32px;
+  }
+
+  .footer-bottom p { font-size: 13px; color: var(--text-lt); }
+
+  /* ── TYPE UTILITIES ── */
+  .eyebrow {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--teal);
+    margin-bottom: 16px;
+  }
+
+  h1, h2, h3 { font-family: var(--serif); line-height: 1.2; }
+
+  .section-title {
+    font-size: clamp(32px, 4vw, 48px);
+    color: var(--dark);
+    margin-bottom: 20px;
+  }
+
+  .section-subtitle {
+    font-size: 18px;
+    color: var(--text-lt);
+    line-height: 1.7;
+    max-width: 600px;
+  }
+
+  .section-header { margin-bottom: 56px; }
+  .section-header.centered { text-align: center; }
+  .section-header.centered .section-subtitle { margin: 0 auto; }
+
+  /* ── SECTIONS ── */
+  .section { padding: 96px 0; }
+  .section-alt { background: var(--off-white); }
+  .section-dark { background: var(--dark); }
+  .section-teal { background: var(--teal); }
+
+  /* ── BUTTONS ── */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--sans);
+    font-size: 15px;
+    font-weight: 600;
+    padding: 14px 28px;
+    border-radius: var(--radius);
+    cursor: pointer;
+    transition: all 0.2s var(--ease);
+    border: none;
+    letter-spacing: 0.01em;
+  }
+
+  .btn-primary {
+    background: var(--teal);
+    color: var(--white);
+  }
+  .btn-primary:hover { background: var(--teal-dark); transform: translateY(-1px); }
+
+  .btn-secondary {
+    background: transparent;
+    color: var(--teal);
+    border: 2px solid var(--teal);
+  }
+  .btn-secondary:hover { background: var(--teal); color: var(--white); }
+
+  .btn-white {
+    background: var(--white);
+    color: var(--teal);
+  }
+  .btn-white:hover { background: var(--teal-light); }
+
+  .btn-ghost {
+    background: transparent;
+    color: var(--white);
+    border: 2px solid rgba(255,255,255,0.4);
+  }
+  .btn-ghost:hover { border-color: var(--white); background: rgba(255,255,255,0.1); }
+
+  /* ── CARDS ── */
+  .card {
+    background: var(--white);
+    border: 1px solid var(--grey-mid);
+    border-radius: var(--radius);
+    padding: 36px;
+    transition: transform 0.2s var(--ease), box-shadow 0.2s var(--ease);
+  }
+  .card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 16px 40px rgba(26, 122, 110, 0.12);
+  }
+
+  /* ─────────────────────────────────────────────────────── */
+  /*  PAGE: HOME                                             */
+  /* ─────────────────────────────────────────────────────── */
+
+  /* Hero */
+  .hero {
+    padding: 112px 0 96px;
+    background: var(--dark);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -120px; right: -120px;
+    width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(26,122,110,0.25) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .hero::after {
+    content: '';
+    position: absolute;
+    bottom: -80px; left: 20%;
+    width: 400px; height: 400px;
+    background: radial-gradient(circle, rgba(168,213,206,0.08) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .hero-inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+    position: relative; z-index: 1;
+  }
+
+  .hero-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(26,122,110,0.2);
+    border: 1px solid rgba(26,122,110,0.4);
+    color: var(--teal-mid);
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 6px 14px;
+    border-radius: 999px;
+    margin-bottom: 28px;
+  }
+
+  .hero h1 {
+    font-size: clamp(40px, 5vw, 60px);
+    color: var(--white);
+    line-height: 1.1;
+    margin-bottom: 24px;
+  }
+
+  .hero h1 em {
+    font-style: italic;
+    color: var(--teal-mid);
+  }
+
+  .hero-sub {
+    font-size: 18px;
+    color: rgba(255,255,255,0.7);
+    margin-bottom: 40px;
+    line-height: 1.7;
+  }
+
+  .hero-actions { display: flex; gap: 16px; flex-wrap: wrap; }
+
+  .hero-visual {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+
+  .hero-stat {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: var(--radius);
+    padding: 28px 24px;
+    transition: background 0.2s;
+  }
+  .hero-stat:hover { background: rgba(26,122,110,0.2); }
+  .hero-stat:nth-child(2) { margin-top: 24px; }
+  .hero-stat:nth-child(4) { margin-top: 24px; }
+
+  .hero-stat-num {
+    font-family: var(--serif);
+    font-size: 40px;
+    color: var(--teal-mid);
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+
+  .hero-stat-label {
+    font-size: 13px;
+    color: rgba(255,255,255,0.5);
+    line-height: 1.4;
+  }
+
+  /* Trust bar */
+  .trust-bar {
+    background: var(--teal-light);
+    border-top: 1px solid var(--teal-mid);
+    border-bottom: 1px solid var(--teal-mid);
+    padding: 20px 0;
+  }
+
+  .trust-bar-inner {
+    display: flex;
+    align-items: center;
+    gap: 48px;
+    flex-wrap: wrap;
+  }
+
+  .trust-label {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--teal);
+    white-space: nowrap;
+  }
+
+  .trust-items {
+    display: flex;
+    gap: 40px;
+    flex-wrap: wrap;
+  }
+
+  .trust-item {
+    font-size: 14px;
+    color: var(--teal-dark);
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .trust-dot {
+    width: 6px; height: 6px;
+    background: var(--teal);
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  /* Problem/Solution */
+  .ps-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    border: 1px solid var(--grey-mid);
+    border-radius: var(--radius);
+    overflow: hidden;
+  }
+
+  .ps-col { padding: 56px 48px; }
+  .ps-col:first-child { border-right: 1px solid var(--grey-mid); }
+
+  .ps-col h3 {
+    font-size: 24px;
+    margin-bottom: 24px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .ps-icon {
+    width: 32px; height: 32px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 14px;
+    flex-shrink: 0;
+  }
+
+  .ps-list { list-style: none; }
+  .ps-list li {
+    padding: 12px 0;
+    border-bottom: 1px solid var(--grey-lt);
+    font-size: 16px;
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+  }
+  .ps-list li:last-child { border-bottom: none; }
+
+  /* Services grid home */
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+
+  .service-card {
+    background: var(--white);
+    border: 1px solid var(--grey-mid);
+    border-radius: var(--radius);
+    padding: 36px 32px;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    transition: all 0.25s var(--ease);
+  }
+
+  .service-card::before {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 3px;
+    background: var(--teal);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s var(--ease);
+  }
+
+  .service-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 16px 40px rgba(26,122,110,0.1);
+    border-color: var(--teal-mid);
+  }
+
+  .service-card:hover::before { transform: scaleX(1); }
+
+  .service-icon {
+    width: 48px; height: 48px;
+    background: var(--teal-light);
+    border-radius: var(--radius);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 22px;
+    margin-bottom: 20px;
+  }
+
+  .service-card h3 {
+    font-size: 20px;
+    color: var(--dark);
+    margin-bottom: 12px;
+  }
+
+  .service-card p {
+    font-size: 15px;
+    color: var(--text-lt);
+    line-height: 1.65;
+  }
+
+  .service-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 20px;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--teal);
+  }
+
+  /* Process */
+  .process-steps {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 0;
+    position: relative;
+  }
+
+  .process-steps::before {
+    content: '';
+    position: absolute;
+    top: 28px;
+    left: 10%;
+    right: 10%;
+    height: 2px;
+    background: var(--teal-mid);
+    z-index: 0;
+  }
+
+  .process-step {
+    text-align: center;
+    padding: 0 12px;
+    position: relative; z-index: 1;
+  }
+
+  .step-num {
+    width: 56px; height: 56px;
+    background: var(--dark);
+    border: 3px solid var(--teal);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--serif);
+    font-size: 22px;
+    color: var(--teal-mid);
+    margin: 0 auto 20px;
+  }
+
+  .process-step h4 {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--dark);
+    margin-bottom: 8px;
+    font-family: var(--sans);
+    letter-spacing: 0.02em;
+  }
+
+  .process-step p { font-size: 13px; color: var(--text-lt); line-height: 1.5; }
+
+  /* Testimonial */
+  .testimonial-block {
+    background: var(--dark);
+    border-radius: var(--radius);
+    padding: 64px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .testimonial-block::before {
+    content: '\201C';
+    font-family: var(--serif);
+    font-size: 200px;
+    color: var(--teal);
+    opacity: 0.15;
+    position: absolute;
+    top: -20px; left: 32px;
+    line-height: 1;
+    pointer-events: none;
+  }
+
+  .testimonial-text {
+    font-family: var(--serif);
+    font-size: clamp(22px, 3vw, 30px);
+    color: var(--white);
+    line-height: 1.5;
+    max-width: 800px;
+    margin-bottom: 32px;
+    font-style: italic;
+    position: relative; z-index: 1;
+  }
+
+  .testimonial-author {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    position: relative; z-index: 1;
+  }
+
+  .author-avatar {
+    width: 48px; height: 48px;
+    background: var(--teal);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--serif);
+    font-size: 20px;
+    color: var(--white);
+    flex-shrink: 0;
+  }
+
+  .author-name {
+    font-weight: 700;
+    color: var(--white);
+    font-size: 15px;
+  }
+
+  .author-title { font-size: 13px; color: var(--teal-mid); }
+
+  /* CTA band */
+  .cta-band {
+    background: var(--teal);
+    padding: 80px 0;
+  }
+
+  .cta-band-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 40px;
+    flex-wrap: wrap;
+  }
+
+  .cta-band h2 {
+    font-size: clamp(28px, 3.5vw, 40px);
+    color: var(--white);
+    max-width: 560px;
+  }
+
+  .cta-band p {
+    color: rgba(255,255,255,0.75);
+    margin-top: 12px;
+    font-size: 17px;
+  }
+
+  /* ─────────────────────────────────────────────────────── */
+  /*  PAGE: SERVICES                                         */
+  /* ─────────────────────────────────────────────────────── */
+
+  .page-hero {
+    background: var(--dark);
+    padding: 80px 0;
+  }
+
+  .page-hero h1 {
+    font-size: clamp(36px, 5vw, 56px);
+    color: var(--white);
+    margin-bottom: 16px;
+    max-width: 700px;
+  }
+
+  .page-hero p {
+    font-size: 18px;
+    color: rgba(255,255,255,0.65);
+    max-width: 560px;
+    line-height: 1.7;
+  }
+
+  .page-hero .eyebrow { margin-bottom: 20px; }
+
+  .services-full { display: flex; flex-direction: column; gap: 0; }
+
+  .service-full {
+    display: grid;
+    grid-template-columns: 5fr 7fr;
+    gap: 0;
+    border-bottom: 1px solid var(--grey-mid);
+  }
+
+  .service-full:last-child { border-bottom: none; }
+  .service-full:nth-child(even) { direction: rtl; }
+  .service-full:nth-child(even) > * { direction: ltr; }
+
+  .svc-info {
+    background: var(--off-white);
+    padding: 64px 56px;
+    border-right: 1px solid var(--grey-mid);
+  }
+
+  .service-full:nth-child(even) .svc-info { border-right: none; border-left: 1px solid var(--grey-mid); }
+
+  .svc-num {
+    font-family: var(--serif);
+    font-size: 72px;
+    color: var(--teal-mid);
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+
+  .svc-info h2 {
+    font-size: 28px;
+    color: var(--dark);
+    margin-bottom: 16px;
+  }
+
+  .svc-info p {
+    font-size: 16px;
+    color: var(--text-lt);
+    line-height: 1.75;
+  }
+
+  .svc-detail { padding: 64px 56px; }
+
+  .svc-detail h3 {
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--teal);
+    margin-bottom: 16px;
+    font-family: var(--sans);
+  }
+
+  .svc-includes {
+    list-style: none;
+    margin-bottom: 32px;
+  }
+
+  .svc-includes li {
+    padding: 10px 0;
+    border-bottom: 1px solid var(--grey-lt);
+    font-size: 15px;
+    color: var(--text);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .svc-includes li:last-child { border-bottom: none; }
+
+  .check {
+    width: 20px; height: 20px;
+    background: var(--teal-light);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 10px;
+    color: var(--teal);
+    flex-shrink: 0;
+    font-weight: 700;
+  }
+
+  /* Packages */
+  .packages-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+
+  .package-card {
+    border: 1px solid var(--grey-mid);
+    border-radius: var(--radius);
+    overflow: hidden;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+
+  .package-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 16px 40px rgba(26,122,110,0.12);
+  }
+
+  .package-card.featured {
+    border-color: var(--teal);
+    position: relative;
+  }
+
+  .package-badge {
+    background: var(--teal);
+    color: var(--white);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 6px 0;
+    text-align: center;
+  }
+
+  .package-head {
+    padding: 32px;
+    border-bottom: 1px solid var(--grey-lt);
+  }
+
+  .package-card.featured .package-head { background: var(--teal-light); }
+
+  .package-name {
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--teal);
+    margin-bottom: 8px;
+  }
+
+  .package-head h3 {
+    font-size: 22px;
+    color: var(--dark);
+    margin-bottom: 8px;
+  }
+
+  .package-price {
+    font-family: var(--serif);
+    font-size: 36px;
+    color: var(--dark);
+  }
+
+  .package-price span { font-size: 16px; color: var(--text-lt); }
+
+  .package-body { padding: 32px; }
+  .package-body p { font-size: 14px; color: var(--text-lt); margin-bottom: 20px; }
+
+  .package-features {
+    list-style: none;
+    margin-bottom: 28px;
+  }
+
+  .package-features li {
+    font-size: 14px;
+    color: var(--text);
+    padding: 8px 0;
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+    border-bottom: 1px solid var(--grey-lt);
+  }
+
+  .package-features li:last-child { border-bottom: none; }
+
+  /* ─────────────────────────────────────────────────────── */
+  /*  PAGE: ABOUT                                            */
+  /* ─────────────────────────────────────────────────────── */
+
+  .about-intro-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: start;
+  }
+
+  .about-intro-text h2 {
+    font-size: clamp(32px, 4vw, 46px);
+    color: var(--dark);
+    margin-bottom: 24px;
+    line-height: 1.15;
+  }
+
+  .about-intro-text p {
+    font-size: 17px;
+    color: var(--text);
+    line-height: 1.8;
+    margin-bottom: 20px;
+  }
+
+  .about-card-col { display: flex; flex-direction: column; gap: 20px; }
+
+  .about-card {
+    background: var(--white);
+    border: 1px solid var(--grey-mid);
+    border-left: 4px solid var(--teal);
+    border-radius: var(--radius);
+    padding: 28px 32px;
+  }
+
+  .about-card h4 {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--dark);
+    margin-bottom: 8px;
+    font-family: var(--sans);
+  }
+
+  .about-card p { font-size: 14px; color: var(--text-lt); line-height: 1.65; }
+
+  /* Values */
+  .values-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 20px;
+  }
+
+  .value-card {
+    text-align: center;
+    padding: 36px 20px;
+    border: 1px solid var(--grey-mid);
+    border-radius: var(--radius);
+    transition: all 0.2s;
+  }
+
+  .value-card:hover {
+    background: var(--teal);
+    border-color: var(--teal);
+    transform: translateY(-4px);
+  }
+
+  .value-card:hover h3,
+  .value-card:hover p { color: var(--white); }
+
+  .value-icon {
+    font-size: 32px;
+    margin-bottom: 16px;
+    display: block;
+  }
+
+  .value-card h3 {
+    font-size: 17px;
+    color: var(--dark);
+    margin-bottom: 10px;
+    transition: color 0.2s;
+  }
+
+  .value-card p {
+    font-size: 13px;
+    color: var(--text-lt);
+    line-height: 1.55;
+    transition: color 0.2s;
+  }
+
+  /* Sectors */
+  .sectors-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+  }
+
+  .sector-card {
+    display: flex;
+    gap: 24px;
+    align-items: flex-start;
+    padding: 32px;
+    background: var(--white);
+    border: 1px solid var(--grey-mid);
+    border-radius: var(--radius);
+  }
+
+  .sector-icon {
+    width: 56px; height: 56px;
+    background: var(--teal-light);
+    border-radius: var(--radius);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 24px;
+    flex-shrink: 0;
+  }
+
+  .sector-card h3 {
+    font-size: 18px;
+    color: var(--dark);
+    margin-bottom: 8px;
+  }
+
+  .sector-card p { font-size: 14px; color: var(--text-lt); line-height: 1.65; }
+
+  /* ─────────────────────────────────────────────────────── */
+  /*  PAGE: CASE STUDIES                                     */
+  /* ─────────────────────────────────────────────────────── */
+
+  .cs-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 32px;
+  }
+
+  .cs-card {
+    border: 1px solid var(--grey-mid);
+    border-radius: var(--radius);
+    overflow: hidden;
+    background: var(--white);
+    cursor: pointer;
+    transition: all 0.25s var(--ease);
+  }
+
+  .cs-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 16px 40px rgba(26,122,110,0.12);
+    border-color: var(--teal-mid);
+  }
+
+  .cs-header {
+    padding: 40px;
+    position: relative;
+  }
+
+  .cs-tag {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 4px 12px;
+    border-radius: 999px;
+    margin-bottom: 20px;
+  }
+
+  .cs-card h3 {
+    font-size: 22px;
+    color: var(--dark);
+    margin-bottom: 12px;
+    line-height: 1.3;
+  }
+
+  .cs-card .cs-org {
+    font-size: 13px;
+    color: var(--text-lt);
+    font-weight: 500;
+  }
+
+  .cs-body { padding: 0 40px 40px; }
+
+  .cs-section-label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--teal);
+    margin-bottom: 8px;
+  }
+
+  .cs-body p {
+    font-size: 15px;
+    color: var(--text);
+    line-height: 1.7;
+    margin-bottom: 24px;
+  }
+
+  .cs-outcomes {
+    display: flex;
+    gap: 24px;
+    flex-wrap: wrap;
+    padding-top: 24px;
+    border-top: 1px solid var(--grey-lt);
+  }
+
+  .cs-outcome {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .cs-outcome-num {
+    font-family: var(--serif);
+    font-size: 28px;
+    color: var(--teal);
+    line-height: 1;
+  }
+
+  .cs-outcome-label { font-size: 12px; color: var(--text-lt); }
+
+  .cs-divider {
+    width: 1px;
+    background: var(--grey-lt);
+    align-self: stretch;
+  }
+
+  /* Approach banner */
+  .approach-banner {
+    background: var(--teal-light);
+    border: 1px solid var(--teal-mid);
+    border-radius: var(--radius);
+    padding: 56px;
+    text-align: center;
+  }
+
+  .approach-banner h2 {
+    font-size: 32px;
+    color: var(--dark);
+    margin-bottom: 16px;
+  }
+
+  .approach-banner p {
+    font-size: 17px;
+    color: var(--text);
+    max-width: 600px;
+    margin: 0 auto 32px;
+    line-height: 1.7;
+  }
+
+  /* ─────────────────────────────────────────────────────── */
+  /*  PAGE: CONTACT                                          */
+  /* ─────────────────────────────────────────────────────── */
+
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 5fr 7fr;
+    gap: 80px;
+    align-items: start;
+  }
+
+  .contact-info h2 {
+    font-size: clamp(28px, 4vw, 40px);
+    color: var(--dark);
+    margin-bottom: 20px;
+  }
+
+  .contact-info p {
+    font-size: 16px;
+    color: var(--text-lt);
+    line-height: 1.75;
+    margin-bottom: 36px;
+  }
+
+  .contact-details { display: flex; flex-direction: column; gap: 20px; }
+
+  .contact-item {
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+  }
+
+  .contact-item-icon {
+    width: 44px; height: 44px;
+    background: var(--teal-light);
+    border-radius: var(--radius);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px;
+    flex-shrink: 0;
+  }
+
+  .contact-item-label {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--teal);
+    margin-bottom: 4px;
+  }
+
+  .contact-item-value {
+    font-size: 15px;
+    color: var(--text);
+    font-weight: 500;
+  }
+
+  /* Form */
+  .contact-form-wrap {
+    background: var(--off-white);
+    border: 1px solid var(--grey-mid);
+    border-radius: var(--radius);
+    padding: 48px;
+  }
+
+  .form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+
+  .form-group { margin-bottom: 24px; }
+
+  .form-group label {
+    display: block;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--dark);
+    letter-spacing: 0.04em;
+    margin-bottom: 8px;
+  }
+
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    width: 100%;
+    font-family: var(--sans);
+    font-size: 15px;
+    color: var(--text);
+    background: var(--white);
+    border: 1px solid var(--grey-mid);
+    border-radius: var(--radius);
+    padding: 12px 16px;
+    outline: none;
+    transition: border-color 0.2s;
+    -webkit-appearance: none;
+    appearance: none;
+  }
+
+  .form-group input:focus,
+  .form-group select:focus,
+  .form-group textarea:focus {
+    border-color: var(--teal);
+    box-shadow: 0 0 0 3px rgba(26,122,110,0.1);
+  }
+
+  .form-group textarea { resize: vertical; min-height: 120px; }
+
+  .form-note {
+    font-size: 13px;
+    color: var(--text-lt);
+    margin-top: 16px;
+    line-height: 1.5;
+  }
+
+  .form-success {
+    display: none;
+    text-align: center;
+    padding: 40px;
+  }
+
+  .form-success.visible { display: block; }
+  .form-success h3 { font-size: 28px; color: var(--dark); margin-bottom: 12px; }
+  .form-success p { color: var(--text-lt); font-size: 16px; }
+  .form-success-icon { font-size: 56px; margin-bottom: 20px; }
+
+  /* FAQ */
+  .faq-list { display: flex; flex-direction: column; gap: 0; }
+
+  .faq-item {
+    border-bottom: 1px solid var(--grey-mid);
+  }
+
+  .faq-question {
+    width: 100%;
+    text-align: left;
+    background: none;
+    border: none;
+    padding: 24px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    font-family: var(--sans);
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--dark);
+    gap: 20px;
+  }
+
+  .faq-arrow {
+    width: 28px; height: 28px;
+    background: var(--teal-light);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 14px;
+    color: var(--teal);
+    flex-shrink: 0;
+    transition: transform 0.2s, background 0.2s;
+  }
+
+  .faq-item.open .faq-arrow {
+    transform: rotate(45deg);
+    background: var(--teal);
+    color: var(--white);
+  }
+
+  .faq-answer {
+    display: none;
+    padding: 0 0 24px;
+    font-size: 15px;
+    color: var(--text-lt);
+    line-height: 1.75;
+    max-width: 700px;
+  }
+
+  .faq-item.open .faq-answer { display: block; }
+
+  /* ── Animations ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .page.active .animate {
+    animation: fadeUp 0.5s var(--ease) both;
+  }
+
+  .page.active .animate-1 { animation-delay: 0.05s; }
+  .page.active .animate-2 { animation-delay: 0.12s; }
+  .page.active .animate-3 { animation-delay: 0.20s; }
+  .page.active .animate-4 { animation-delay: 0.28s; }
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════ NAV ═══════════════════ -->
+<nav>
+  <div class="nav-inner">
+    <div class="nav-logo" onclick="showPage('home')">
+      <span class="cd">Clearfield</span>
+      <span class="slash">/</span>
+      <span>Digital</span>
+    </div>
+    <ul class="nav-links">
+      <li><a onclick="showPage('home')" data-page="home">Home</a></li>
+      <li><a onclick="showPage('services')" data-page="services">Services</a></li>
+      <li><a onclick="showPage('about')" data-page="about">About</a></li>
+      <li><a onclick="showPage('casestudies')" data-page="casestudies">Work</a></li>
+      <li><a onclick="showPage('contact')" class="nav-cta" data-page="contact">Get in touch</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- ═══════════════════ PAGE: HOME ═══════════════════ -->
+<div class="page active" id="page-home">
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="container">
+      <div class="hero-inner">
+        <div class="hero-content">
+          <div class="hero-tag animate animate-1">
+            <span>✦</span> Perth, Western Australia
+          </div>
+          <h1 class="animate animate-2">
+            Clear strategy.<br>
+            <em>Confident governance.</em><br>
+            Communications that connect.
+          </h1>
+          <p class="hero-sub animate animate-3">
+            Clearfield Digital helps purpose-driven organisations communicate clearly, lead with confidence, and engage their communities with integrity.
+          </p>
+          <div class="hero-actions animate animate-4">
+            <button class="btn btn-primary" onclick="showPage('services')">See our services</button>
+            <button class="btn btn-ghost" onclick="showPage('contact')">Talk to us</button>
+          </div>
+        </div>
+        <div class="hero-visual animate animate-3">
+          <div class="hero-stat">
+            <div class="hero-stat-num">NFP</div>
+            <div class="hero-stat-label">Sector specialists — not-for-profits, housing, Aboriginal orgs</div>
+          </div>
+          <div class="hero-stat">
+            <div class="hero-stat-num">Senior</div>
+            <div class="hero-stat-label">Every engagement led personally by the founder</div>
+          </div>
+          <div class="hero-stat">
+            <div class="hero-stat-num">5</div>
+            <div class="hero-stat-label">Core service areas from strategy to governance</div>
+          </div>
+          <div class="hero-stat">
+            <div class="hero-stat-num">Trusted</div>
+            <div class="hero-stat-label">A calm, steady hand in complex situations</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Trust bar -->
+  <div class="trust-bar">
+    <div class="container">
+      <div class="trust-bar-inner">
+        <span class="trust-label">We work with</span>
+        <div class="trust-items">
+          <span class="trust-item"><span class="trust-dot"></span> Not-for-profits</span>
+          <span class="trust-item"><span class="trust-dot"></span> Community housing providers</span>
+          <span class="trust-item"><span class="trust-dot"></span> Aboriginal organisations</span>
+          <span class="trust-item"><span class="trust-dot"></span> Government-funded bodies</span>
+          <span class="trust-item"><span class="trust-dot"></span> SMEs without comms teams</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Problem / Solution -->
+  <section class="section">
+    <div class="container">
+      <div class="section-header">
+        <p class="eyebrow">The Problem We Solve</p>
+        <h2 class="section-title">You're doing important work.<br>You shouldn't be held back by unclear communications.</h2>
+      </div>
+      <div class="ps-grid">
+        <div class="ps-col">
+          <h3 style="color:#C0392B;">
+            <span class="ps-icon" style="background:#FEE;">❌</span>
+            Without Clearfield Digital
+          </h3>
+          <ul class="ps-list">
+            <li><span style="color:#C0392B; font-size:18px;">—</span> You know what you want to say but can't find the right words</li>
+            <li><span style="color:#C0392B; font-size:18px;">—</span> Your board gets information but doesn't always understand it</li>
+            <li><span style="color:#C0392B; font-size:18px;">—</span> Stakeholder engagement feels reactive, not planned</li>
+            <li><span style="color:#C0392B; font-size:18px;">—</span> You have a comms plan in a drawer that nobody uses</li>
+            <li><span style="color:#C0392B; font-size:18px;">—</span> Governance gaps are leaving your organisation exposed</li>
+          </ul>
+        </div>
+        <div class="ps-col" style="background:var(--teal-light);">
+          <h3 style="color:var(--teal);">
+            <span class="ps-icon" style="background:var(--teal-light); border:2px solid var(--teal);">✓</span>
+            With Clearfield Digital
+          </h3>
+          <ul class="ps-list">
+            <li><span class="check">✓</span> A clear communications strategy your team can actually use</li>
+            <li><span class="check">✓</span> Board papers and governance structures that give leadership confidence</li>
+            <li><span class="check">✓</span> A proactive stakeholder engagement plan that builds trust</li>
+            <li><span class="check">✓</span> Marketing direction that works for your sector and your budget</li>
+            <li><span class="check">✓</span> Expert guidance — without the cost of a full-time hire</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Services -->
+  <section class="section section-alt">
+    <div class="container">
+      <div class="section-header centered">
+        <p class="eyebrow">What We Do</p>
+        <h2 class="section-title">Strategic expertise across<br>five core areas</h2>
+        <p class="section-subtitle">From communications strategy to board governance — we provide senior-level advisory that makes a real difference.</p>
+      </div>
+      <div class="services-grid">
+        <div class="service-card" onclick="showPage('services')">
+          <div class="service-icon">💬</div>
+          <h3>Communications Strategy</h3>
+          <p>A clear, practical strategy that tells your story, reaches your audiences, and gives your team a framework to work from.</p>
+          <span class="service-link">Learn more →</span>
+        </div>
+        <div class="service-card" onclick="showPage('services')">
+          <div class="service-icon">📣</div>
+          <h3>Marketing Strategy & Planning</h3>
+          <p>Purpose-sector marketing that positions your organisation, builds your brand, and connects you to the right people.</p>
+          <span class="service-link">Learn more →</span>
+        </div>
+        <div class="service-card" onclick="showPage('services')">
+          <div class="service-icon">🏛️</div>
+          <h3>Governance Support</h3>
+          <p>Governance reviews, board frameworks, and policy support that strengthen how your organisation leads and accounts for its work.</p>
+          <span class="service-link">Learn more →</span>
+        </div>
+        <div class="service-card" onclick="showPage('services')">
+          <div class="service-icon">📋</div>
+          <h3>Board Communications</h3>
+          <p>Board papers, reporting frameworks, and communications protocols that keep your board informed and your leadership aligned.</p>
+          <span class="service-link">Learn more →</span>
+        </div>
+        <div class="service-card" onclick="showPage('services')">
+          <div class="service-icon">🤝</div>
+          <h3>Stakeholder Engagement</h3>
+          <p>Genuine engagement — mapped, planned, and executed with care. We design consultation that earns trust and produces useful input.</p>
+          <span class="service-link">Learn more →</span>
+        </div>
+        <div class="service-card" onclick="showPage('services')">
+          <div class="service-icon">💻</div>
+          <h3>Digital & Content Strategy</h3>
+          <p>Digital presence planning, content strategy, and social media frameworks built around what your organisation actually needs.</p>
+          <span class="service-link">Learn more →</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Process -->
+  <section class="section">
+    <div class="container">
+      <div class="section-header centered">
+        <p class="eyebrow">The Clearfield Method</p>
+        <h2 class="section-title">How we work</h2>
+        <p class="section-subtitle">Five stages. One consistent approach. Built for organisations navigating real complexity.</p>
+      </div>
+      <div class="process-steps">
+        <div class="process-step">
+          <div class="step-num">01</div>
+          <h4>Diagnose</h4>
+          <p>Listen first. Understand the real challenge — not just the symptoms.</p>
+        </div>
+        <div class="process-step">
+          <div class="step-num">02</div>
+          <h4>Design</h4>
+          <p>Build a strategy grounded in your context — not a template.</p>
+        </div>
+        <div class="process-step">
+          <div class="step-num">03</div>
+          <h4>Align</h4>
+          <p>Bring your board and leadership with you. Governance at the centre.</p>
+        </div>
+        <div class="process-step">
+          <div class="step-num">04</div>
+          <h4>Activate</h4>
+          <p>Turn plans into practice with tools, templates, and real support.</p>
+        </div>
+        <div class="process-step">
+          <div class="step-num">05</div>
+          <h4>Evaluate</h4>
+          <p>Measure what matters. Build in learning from the start.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonial -->
+  <section class="section section-alt">
+    <div class="container">
+      <div class="testimonial-block">
+        <p class="testimonial-text">"We knew what we wanted to achieve — we just couldn't find the words or the structure to get there. Clearfield Digital gave us a strategy we could actually use, and a consultant who genuinely understood our sector."</p>
+        <div class="testimonial-author">
+          <div class="author-avatar">C</div>
+          <div>
+            <p class="author-name">CEO, Community Housing Provider</p>
+            <p class="author-title">Perth, Western Australia</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <div class="cta-band">
+    <div class="container">
+      <div class="cta-band-inner">
+        <div>
+          <h2>Ready to get clear?</h2>
+          <p>Let's talk about what you're working through — no obligation, no jargon.</p>
+        </div>
+        <button class="btn btn-white" onclick="showPage('contact')">Book a discovery call →</button>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /page-home -->
+
+<!-- ═══════════════════ PAGE: SERVICES ═══════════════════ -->
+<div class="page" id="page-services">
+
+  <section class="page-hero">
+    <div class="container">
+      <p class="eyebrow animate animate-1">What We Do</p>
+      <h1 class="animate animate-2">Strategic services for<br>purpose-driven organisations</h1>
+      <p class="animate animate-3">Senior-led advisory across communications, marketing, governance, and stakeholder engagement. Practical. Considered. Built for your sector.</p>
+    </div>
+  </section>
+
+  <!-- Services detail -->
+  <div class="services-full">
+    <div class="service-full">
+      <div class="svc-info">
+        <div class="svc-num">01</div>
+        <h2>Communications Strategy</h2>
+        <p>Many organisations know what they want to say. The challenge is building a framework that gives your team clarity, consistency, and confidence — and a strategy they'll actually use beyond the first month.</p>
+        <p style="margin-top:16px; font-size:15px; color:var(--text-lt);">We listen, diagnose, and build a communications strategy grounded in your context. Not a template. Not a document for a drawer.</p>
+      </div>
+      <div class="svc-detail">
+        <h3>What's included</h3>
+        <ul class="svc-includes">
+          <li><span class="check">✓</span> Communications audit (current state review)</li>
+          <li><span class="check">✓</span> Stakeholder and audience mapping</li>
+          <li><span class="check">✓</span> Messaging framework and key messages guide</li>
+          <li><span class="check">✓</span> Channel and content plan</li>
+          <li><span class="check">✓</span> Tone of voice guide</li>
+          <li><span class="check">✓</span> 12-month implementation roadmap</li>
+          <li><span class="check">✓</span> Review sessions with your team</li>
+        </ul>
+        <p style="font-size:14px; color:var(--text-lt); line-height:1.65;"><strong style="color:var(--dark);">Suited to:</strong> NFPs, housing providers, government-funded organisations, and purpose-driven businesses without a dedicated communications team.</p>
+      </div>
+    </div>
+
+    <div class="service-full">
+      <div class="svc-info">
+        <div class="svc-num">02</div>
+        <h2>Marketing Strategy & Planning</h2>
+        <p>Marketing in the purpose sector isn't the same as commercial marketing. You're not just selling — you're building trust, demonstrating impact, and earning the confidence of funders, partners, and communities.</p>
+        <p style="margin-top:16px; font-size:15px; color:var(--text-lt);">We develop marketing plans that are practical, affordable, and designed for your operating environment.</p>
+      </div>
+      <div class="svc-detail">
+        <h3>What's included</h3>
+        <ul class="svc-includes">
+          <li><span class="check">✓</span> Market and audience analysis</li>
+          <li><span class="check">✓</span> Brand positioning and value proposition</li>
+          <li><span class="check">✓</span> 12-month marketing plan</li>
+          <li><span class="check">✓</span> Digital strategy overview</li>
+          <li><span class="check">✓</span> Content pillars and calendar framework</li>
+          <li><span class="check">✓</span> Budget and resource planning</li>
+          <li><span class="check">✓</span> KPI and measurement framework</li>
+        </ul>
+        <p style="font-size:14px; color:var(--text-lt); line-height:1.65;"><strong style="color:var(--dark);">Suited to:</strong> SMEs building their brand, NFPs growing their reach, and organisations reviewing their marketing after a period of change.</p>
+      </div>
+    </div>
+
+    <div class="service-full">
+      <div class="svc-info">
+        <div class="svc-num">03</div>
+        <h2>Governance Support</h2>
+        <p>Good governance is not just about compliance. It's about giving your board the confidence to lead, your leadership the clarity to act, and your organisation the resilience to last.</p>
+        <p style="margin-top:16px; font-size:15px; color:var(--text-lt);">We bring governance expertise that is practical, plain-spoken, and designed for the realities of the community sector.</p>
+      </div>
+      <div class="svc-detail">
+        <h3>What's included</h3>
+        <ul class="svc-includes">
+          <li><span class="check">✓</span> Governance health review and report</li>
+          <li><span class="check">✓</span> Constitution and policy review</li>
+          <li><span class="check">✓</span> Board skills matrix and gap analysis</li>
+          <li><span class="check">✓</span> Delegations of authority review</li>
+          <li><span class="check">✓</span> Risk management framework review</li>
+          <li><span class="check">✓</span> Board induction materials</li>
+          <li><span class="check">✓</span> Prioritised recommendations</li>
+        </ul>
+        <p style="font-size:14px; color:var(--text-lt); line-height:1.65;"><strong style="color:var(--dark);">Suited to:</strong> NFPs, Aboriginal organisations, community housing providers, and any organisation facing governance challenges or regulatory change.</p>
+      </div>
+    </div>
+
+    <div class="service-full">
+      <div class="svc-info">
+        <div class="svc-num">04</div>
+        <h2>Board Communications</h2>
+        <p>The relationship between leadership and the board depends on information flowing clearly in both directions. When board papers are dense and reporting is unclear, boards can't govern effectively — and leaders lose confidence.</p>
+        <p style="margin-top:16px; font-size:15px; color:var(--text-lt);">We help organisations build board communications that are clear, purposeful, and actually useful.</p>
+      </div>
+      <div class="svc-detail">
+        <h3>What's included</h3>
+        <ul class="svc-includes">
+          <li><span class="check">✓</span> Board reporting framework and templates</li>
+          <li><span class="check">✓</span> Board paper writing guide</li>
+          <li><span class="check">✓</span> CEO-to-Board communications protocol</li>
+          <li><span class="check">✓</span> Annual report structure and planning</li>
+          <li><span class="check">✓</span> Board calendar and meeting rhythm review</li>
+          <li><span class="check">✓</span> Board induction communications pack</li>
+        </ul>
+        <p style="font-size:14px; color:var(--text-lt); line-height:1.65;"><strong style="color:var(--dark);">Suited to:</strong> Organisations where the board-management relationship needs strengthening, or where reporting has become a burden rather than a tool.</p>
+      </div>
+    </div>
+
+    <div class="service-full">
+      <div class="svc-info">
+        <div class="svc-num">05</div>
+        <h2>Stakeholder Engagement</h2>
+        <p>Real engagement is not a tick-box. It changes how decisions are made, builds trust over time, and demonstrates that your organisation genuinely listens.</p>
+        <p style="margin-top:16px; font-size:15px; color:var(--text-lt);">We design and deliver engagement that is grounded in the IAP2 framework, culturally informed, and built for the communities you serve.</p>
+      </div>
+      <div class="svc-detail">
+        <h3>What's included</h3>
+        <ul class="svc-includes">
+          <li><span class="check">✓</span> Stakeholder mapping and register</li>
+          <li><span class="check">✓</span> Engagement strategy and plan</li>
+          <li><span class="check">✓</span> Consultation design (methods and tools)</li>
+          <li><span class="check">✓</span> Communication materials for engagement activities</li>
+          <li><span class="check">✓</span> Feedback analysis and reporting</li>
+          <li><span class="check">✓</span> Plain language summaries</li>
+          <li><span class="check">✓</span> Evaluation framework</li>
+        </ul>
+        <p style="font-size:14px; color:var(--text-lt); line-height:1.65;"><strong style="color:var(--dark);">Suited to:</strong> Government-funded organisations, community housing providers, and Aboriginal organisations with complex stakeholder environments.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Packages -->
+  <section class="section section-alt">
+    <div class="container">
+      <div class="section-header centered">
+        <p class="eyebrow">Packages & Pricing</p>
+        <h2 class="section-title">The right level of support<br>for where you are</h2>
+        <p class="section-subtitle">From a focused strategy sprint to ongoing advisory — we have an engagement model to suit your needs and your budget.</p>
+      </div>
+      <div class="packages-grid">
+        <div class="package-card">
+          <div class="package-head">
+            <div class="package-name">Foundation</div>
+            <h3>Communications Audit & Quick Strategy</h3>
+            <div class="package-price">$3,500 <span>excl. GST</span></div>
+          </div>
+          <div class="package-body">
+            <p>For organisations just getting started. A focused audit and clear direction in 2–3 weeks.</p>
+            <ul class="package-features">
+              <li><span class="check">✓</span> Communications audit</li>
+              <li><span class="check">✓</span> Messaging framework</li>
+              <li><span class="check">✓</span> 1-page strategy summary</li>
+              <li><span class="check">✓</span> Channel recommendations</li>
+              <li><span class="check">✓</span> 60-minute strategy session</li>
+            </ul>
+            <button class="btn btn-secondary" style="width:100%;" onclick="showPage('contact')">Get started</button>
+          </div>
+        </div>
+        <div class="package-card featured">
+          <div class="package-badge">Most Popular</div>
+          <div class="package-head">
+            <div class="package-name">Clarity</div>
+            <h3>Full Communications Strategy</h3>
+            <div class="package-price">$7,500 <span>excl. GST</span></div>
+          </div>
+          <div class="package-body">
+            <p>A comprehensive strategy built for your organisation. 4–6 weeks from discovery to delivery.</p>
+            <ul class="package-features">
+              <li><span class="check">✓</span> Stakeholder and audience analysis</li>
+              <li><span class="check">✓</span> Full 12-month strategy document</li>
+              <li><span class="check">✓</span> Messaging and narrative guide</li>
+              <li><span class="check">✓</span> Channel and content plan</li>
+              <li><span class="check">✓</span> Implementation roadmap</li>
+              <li><span class="check">✓</span> 2 x review sessions</li>
+            </ul>
+            <button class="btn btn-primary" style="width:100%;" onclick="showPage('contact')">Get started</button>
+          </div>
+        </div>
+        <div class="package-card">
+          <div class="package-head">
+            <div class="package-name">Fractional Director</div>
+            <h3>Ongoing Communications Leadership</h3>
+            <div class="package-price">$3,500 <span>/ month</span></div>
+          </div>
+          <div class="package-body">
+            <p>Your senior communications advisor on retainer. Strategic direction, whenever you need it.</p>
+            <ul class="package-features">
+              <li><span class="check">✓</span> Up to 2 days/month advisory</li>
+              <li><span class="check">✓</span> Unlimited email/phone support</li>
+              <li><span class="check">✓</span> Monthly strategy session</li>
+              <li><span class="check">✓</span> Materials review and feedback</li>
+              <li><span class="check">✓</span> Quarterly board/leadership meeting</li>
+            </ul>
+            <button class="btn btn-secondary" style="width:100%;" onclick="showPage('contact')">Enquire now</button>
+          </div>
+        </div>
+      </div>
+      <p style="text-align:center; margin-top:32px; font-size:14px; color:var(--text-lt);">All prices exclude GST. NFP discount available. Custom project scoping on request. <a onclick="showPage('contact')" style="color:var(--teal); cursor:pointer; font-weight:600;">Contact us to discuss your needs.</a></p>
+    </div>
+  </section>
+
+  <div class="cta-band">
+    <div class="container">
+      <div class="cta-band-inner">
+        <div>
+          <h2>Not sure which service is right for you?</h2>
+          <p>We'll help you work it out. A 30-minute call is all it takes.</p>
+        </div>
+        <button class="btn btn-white" onclick="showPage('contact')">Book a free call →</button>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /page-services -->
+
+<!-- ═══════════════════ PAGE: ABOUT ═══════════════════ -->
+<div class="page" id="page-about">
+
+  <section class="page-hero">
+    <div class="container">
+      <p class="eyebrow animate animate-1">About Clearfield Digital</p>
+      <h1 class="animate animate-2">A trusted advisor<br>for complex work</h1>
+      <p class="animate animate-3">Built on the belief that every organisation — regardless of size or budget — deserves access to strategic communications and governance expertise that actually makes a difference.</p>
+    </div>
+  </section>
+
+  <!-- Intro -->
+  <section class="section">
+    <div class="container">
+      <div class="about-intro-grid">
+        <div class="about-intro-text">
+          <h2>We exist for organisations doing important work in complex environments</h2>
+          <p>Clearfield Digital was founded on a simple observation: the organisations that need strategic communications and governance expertise most are often the ones least able to access it.</p>
+          <p>Large agencies are too expensive. Generalist freelancers lack the depth. And hiring a full-time communications director isn't always the right fit — especially for smaller organisations navigating a surge, a transition, or a significant challenge.</p>
+          <p>So we built something different. A boutique consulting practice that provides senior-level strategic thinking, deep sector knowledge, and genuine human relationships — at a scale and price point that works for the purpose sector.</p>
+          <button class="btn btn-primary" onclick="showPage('contact')" style="margin-top:12px;">Work with us</button>
+        </div>
+        <div class="about-card-col">
+          <div class="about-card">
+            <h4>Senior-led. Always.</h4>
+            <p>Every engagement is led personally by the founder. You will always deal directly with the most experienced person in the room — not a junior consultant with the founder's name on the proposal.</p>
+          </div>
+          <div class="about-card">
+            <h4>Deep sector fluency.</h4>
+            <p>We understand the NFP sector, Aboriginal organisations, community housing, and government-funded bodies — not at a surface level, but from years of working directly within and alongside these environments.</p>
+          </div>
+          <div class="about-card">
+            <h4>Honest, not just helpful.</h4>
+            <p>We give you our genuine professional view. That means we'll tell you when we think a different approach would serve you better — even if it means a smaller engagement for us.</p>
+          </div>
+          <div class="about-card">
+            <h4>Practical by design.</h4>
+            <p>Every document we produce is designed to be used, not filed. Clear, plain, and built for the realities of your team's capacity and your organisation's context.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Values -->
+  <section class="section section-alt">
+    <div class="container">
+      <div class="section-header centered">
+        <p class="eyebrow">What We Stand For</p>
+        <h2 class="section-title">Our values</h2>
+      </div>
+      <div class="values-grid">
+        <div class="value-card">
+          <span class="value-icon">🔍</span>
+          <h3>Clarity</h3>
+          <p>We cut through complexity to find the clear path forward — in our work and in our writing.</p>
+        </div>
+        <div class="value-card">
+          <span class="value-icon">🤝</span>
+          <h3>Integrity</h3>
+          <p>We do what we say and say what we mean. No spin. No overclaiming. No surprises.</p>
+        </div>
+        <div class="value-card">
+          <span class="value-icon">🌿</span>
+          <h3>Grounded</h3>
+          <p>We stay connected to what matters — people and purpose — not just process and deliverables.</p>
+        </div>
+        <div class="value-card">
+          <span class="value-icon">🧭</span>
+          <h3>Considered</h3>
+          <p>We think before we act and plan before we execute. Deliberate over reactive, always.</p>
+        </div>
+        <div class="value-card">
+          <span class="value-icon">💡</span>
+          <h3>Courageous</h3>
+          <p>We say the hard things when they need to be said. Being trusted means being honest.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Approach -->
+  <section class="section">
+    <div class="container">
+      <div class="section-header">
+        <p class="eyebrow">How We Work</p>
+        <h2 class="section-title">The Clearfield Method</h2>
+        <p class="section-subtitle">Every engagement follows a consistent five-stage approach — flexible enough to meet your context, structured enough to deliver real results.</p>
+      </div>
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:24px;">
+        <div class="card">
+          <p style="font-size:13px; font-weight:700; color:var(--teal); letter-spacing:0.1em; text-transform:uppercase; margin-bottom:12px;">Stage 01</p>
+          <h3 style="font-size:22px; color:var(--dark); margin-bottom:12px;">Diagnose</h3>
+          <p style="font-size:15px; color:var(--text-lt); line-height:1.7;">We listen before we lead. Stakeholder interviews, document review, and an honest assessment of the current state — not just the symptoms, but what's really driving them.</p>
+        </div>
+        <div class="card">
+          <p style="font-size:13px; font-weight:700; color:var(--teal); letter-spacing:0.1em; text-transform:uppercase; margin-bottom:12px;">Stage 02</p>
+          <h3 style="font-size:22px; color:var(--dark); margin-bottom:12px;">Design</h3>
+          <p style="font-size:15px; color:var(--text-lt); line-height:1.7;">Strategy built collaboratively — for your organisation, your context, and your team. Not a template with your name on it. Every plan is original.</p>
+        </div>
+        <div class="card">
+          <p style="font-size:13px; font-weight:700; color:var(--teal); letter-spacing:0.1em; text-transform:uppercase; margin-bottom:12px;">Stage 03</p>
+          <h3 style="font-size:22px; color:var(--dark); margin-bottom:12px;">Align</h3>
+          <p style="font-size:15px; color:var(--text-lt); line-height:1.7;">Great strategy fails without organisational alignment. We ensure boards, leadership, and teams are on the same page — and that governance structures support the strategy.</p>
+        </div>
+        <div class="card">
+          <p style="font-size:13px; font-weight:700; color:var(--teal); letter-spacing:0.1em; text-transform:uppercase; margin-bottom:12px;">Stage 04</p>
+          <h3 style="font-size:22px; color:var(--dark); margin-bottom:12px;">Activate</h3>
+          <p style="font-size:15px; color:var(--text-lt); line-height:1.7;">We support implementation — with tools, templates, and embedded advisory to turn plans into action and documents into outcomes your team can feel.</p>
+        </div>
+      </div>
+      <div class="card" style="margin-top:24px; background:var(--dark); border-color:var(--dark);">
+        <p style="font-size:13px; font-weight:700; color:var(--teal-mid); letter-spacing:0.1em; text-transform:uppercase; margin-bottom:12px;">Stage 05</p>
+        <h3 style="font-size:22px; color:var(--white); margin-bottom:12px;">Evaluate</h3>
+        <p style="font-size:15px; color:rgba(255,255,255,0.65); line-height:1.7; max-width:600px;">We build evaluation in from the start — not as an afterthought. Clear measures, honest reporting, and a commitment to learning that ensures our work creates lasting value.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Sectors -->
+  <section class="section section-alt">
+    <div class="container">
+      <div class="section-header centered">
+        <p class="eyebrow">Who We Work With</p>
+        <h2 class="section-title">Our sectors</h2>
+      </div>
+      <div class="sectors-grid">
+        <div class="sector-card">
+          <div class="sector-icon">🏡</div>
+          <div>
+            <h3>Not-for-Profits</h3>
+            <p>We understand the NFP operating environment — the funding pressures, the accountability requirements, the importance of trust with community. We speak your language and know your sector.</p>
+          </div>
+        </div>
+        <div class="sector-card">
+          <div class="sector-icon">🏘️</div>
+          <div>
+            <h3>Community Housing Providers</h3>
+            <p>Stakeholder engagement, governance support, and communications strategy built for the complexity of the housing sector — tenant engagement, government relations, and regulatory compliance.</p>
+          </div>
+        </div>
+        <div class="sector-card">
+          <div class="sector-icon">🌏</div>
+          <div>
+            <h3>Aboriginal Organisations</h3>
+            <p>Deep experience working with Aboriginal community-controlled organisations — with genuine respect for self-determination, cultural protocols, and the importance of getting things right, not just getting things done.</p>
+          </div>
+        </div>
+        <div class="sector-card">
+          <div class="sector-icon">📊</div>
+          <div>
+            <h3>Government-Funded Organisations</h3>
+            <p>Accountability reporting, stakeholder engagement, and communications support for organisations navigating government funding relationships and the expectations that come with them.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="cta-band">
+    <div class="container">
+      <div class="cta-band-inner">
+        <div>
+          <h2>Let's find out if we're the right fit.</h2>
+          <p>A 30-minute conversation. No pitch, no pressure. Just an honest chat about where we might help.</p>
+        </div>
+        <button class="btn btn-white" onclick="showPage('contact')">Book a call →</button>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /page-about -->
+
+<!-- ═══════════════════ PAGE: CASE STUDIES ═══════════════════ -->
+<div class="page" id="page-casestudies">
+
+  <section class="page-hero">
+    <div class="container">
+      <p class="eyebrow animate animate-1">Our Work</p>
+      <h1 class="animate animate-2">Real work. Real organisations.<br>Real outcomes.</h1>
+      <p class="animate animate-3">We protect our clients' confidentiality — all case studies are anonymised. The challenges, the approaches, and the outcomes are real.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="cs-grid">
+
+        <div class="cs-card">
+          <div class="cs-header" style="background:var(--teal-light);">
+            <span class="cs-tag" style="background:var(--teal); color:var(--white);">Communications Strategy</span>
+            <h3>Finding their voice after 20 years of doing good work quietly</h3>
+            <p class="cs-org">Community housing provider — Perth metropolitan region</p>
+          </div>
+          <div class="cs-body">
+            <p class="cs-section-label">The Challenge</p>
+            <p>A well-respected community housing provider had spent two decades delivering exceptional outcomes for tenants — but had never built a communications function or strategy. With a change of CEO and increasing accountability expectations from funders, they needed to find their voice.</p>
+            <p class="cs-section-label">Our Approach</p>
+            <p>We conducted a full communications audit, interviewed key stakeholders (including tenants and board members), and developed a 12-month communications strategy with a messaging framework, channel plan, and implementation roadmap. We then supported the CEO with board communications protocols that strengthened the leadership-board relationship.</p>
+            <div class="cs-outcomes">
+              <div class="cs-outcome">
+                <div class="cs-outcome-num">12</div>
+                <div class="cs-outcome-label">month strategy delivered</div>
+              </div>
+              <div class="cs-divider"></div>
+              <div class="cs-outcome">
+                <div class="cs-outcome-num">6 wks</div>
+                <div class="cs-outcome-label">discovery to delivery</div>
+              </div>
+              <div class="cs-divider"></div>
+              <div class="cs-outcome">
+                <div class="cs-outcome-num">Board</div>
+                <div class="cs-outcome-label">adopted strategy unanimously</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="cs-card">
+          <div class="cs-header" style="background:var(--sand);">
+            <span class="cs-tag" style="background:var(--accent); color:var(--white);">Governance Review</span>
+            <h3>Strengthening governance before a significant period of growth</h3>
+            <p class="cs-org">Not-for-profit community services organisation — Western Australia</p>
+          </div>
+          <div class="cs-body">
+            <p class="cs-section-label">The Challenge</p>
+            <p>A growing NFP had expanded rapidly over three years and knew its governance structures hadn't kept pace. With a board renewal process underway and a new strategic plan in development, the CEO wanted an honest assessment of where the risks were.</p>
+            <p class="cs-section-label">Our Approach</p>
+            <p>We conducted a comprehensive governance review — covering the constitution, policies, delegations, board meeting practice, and financial governance. The resulting report included 14 prioritised recommendations, and we facilitated a board workshop to work through the findings and develop an action plan.</p>
+            <div class="cs-outcomes">
+              <div class="cs-outcome">
+                <div class="cs-outcome-num">14</div>
+                <div class="cs-outcome-label">recommendations delivered</div>
+              </div>
+              <div class="cs-divider"></div>
+              <div class="cs-outcome">
+                <div class="cs-outcome-num">100%</div>
+                <div class="cs-outcome-label">of urgent items actioned</div>
+              </div>
+              <div class="cs-divider"></div>
+              <div class="cs-outcome">
+                <div class="cs-outcome-num">Board</div>
+                <div class="cs-outcome-label">workshop facilitated</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="cs-card">
+          <div class="cs-header" style="background:#EEF6F5;">
+            <span class="cs-tag" style="background:var(--dark); color:var(--white);">Stakeholder Engagement</span>
+            <h3>Genuine consultation for a sensitive housing policy change</h3>
+            <p class="cs-org">Community housing provider — regional Western Australia</p>
+          </div>
+          <div class="cs-body">
+            <p class="cs-section-label">The Challenge</p>
+            <p>A community housing provider needed to consult tenants and community members on a significant policy change that would affect how properties were allocated. Previous consultation attempts had been poorly received, and trust was low. They needed a different approach.</p>
+            <p class="cs-section-label">Our Approach</p>
+            <p>We designed a multi-method engagement process grounded in the IAP2 framework — including community forums, individual conversations, written submissions, and plain language materials. We mapped stakeholders carefully, identified the most sensitive relationships, and built in genuine feedback loops. All input was summarised honestly, including the parts that were difficult to hear.</p>
+            <div class="cs-outcomes">
+              <div class="cs-outcome">
+                <div class="cs-outcome-num">4</div>
+                <div class="cs-outcome-label">engagement methods used</div>
+              </div>
+              <div class="cs-divider"></div>
+              <div class="cs-outcome">
+                <div class="cs-outcome-num">High</div>
+                <div class="cs-outcome-label">satisfaction with process</div>
+              </div>
+              <div class="cs-divider"></div>
+              <div class="cs-outcome">
+                <div class="cs-outcome-num">Policy</div>
+                <div class="cs-outcome-label">revised based on input</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="cs-card">
+          <div class="cs-header" style="background:var(--dark);">
+            <span class="cs-tag" style="background:rgba(255,255,255,0.15); color:var(--teal-mid);">Marketing Strategy</span>
+            <h3 style="color:var(--white);">Positioning for growth in a crowded market</h3>
+            <p class="cs-org" style="color:var(--teal-mid);">Professional services SME — Perth</p>
+          </div>
+          <div class="cs-body">
+            <p class="cs-section-label">The Challenge</p>
+            <p>A small professional services firm had grown primarily through referrals but was struggling to articulate what made them different. With several new competitors entering the market, they needed a clear positioning strategy and a marketing plan they could actually implement.</p>
+            <p class="cs-section-label">Our Approach</p>
+            <p>We conducted audience research, mapped the competitive landscape, and worked with the leadership team to develop a positioning statement and value proposition that was genuinely distinctive. The resulting marketing strategy included a digital channel plan, content pillars, a LinkedIn strategy, and a referral program — all sized for a team of 12 without a dedicated marketing function.</p>
+            <div class="cs-outcomes">
+              <div class="cs-outcome">
+                <div class="cs-outcome-num">Clear</div>
+                <div class="cs-outcome-label">positioning established</div>
+              </div>
+              <div class="cs-divider"></div>
+              <div class="cs-outcome">
+                <div class="cs-outcome-num">12 mo</div>
+                <div class="cs-outcome-label">marketing plan delivered</div>
+              </div>
+              <div class="cs-divider"></div>
+              <div class="cs-outcome">
+                <div class="cs-outcome-num">Team</div>
+                <div class="cs-outcome-label">trained and equipped</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Approach note -->
+  <section class="section section-alt">
+    <div class="container">
+      <div class="approach-banner">
+        <p class="eyebrow" style="text-align:center;">Our Approach to Case Studies</p>
+        <h2>We believe in honest stories — not marketing gloss</h2>
+        <p>We anonymise all case studies to protect our clients. We don't publish logos without permission, and we don't embellish outcomes. What you read here is what actually happened — including the parts that were hard.</p>
+        <button class="btn btn-primary" onclick="showPage('contact')">Discuss your challenge →</button>
+      </div>
+    </div>
+  </section>
+
+  <div class="cta-band">
+    <div class="container">
+      <div class="cta-band-inner">
+        <div>
+          <h2>Your challenge sounds familiar?</h2>
+          <p>We've probably worked through something similar before. Let's talk.</p>
+        </div>
+        <button class="btn btn-white" onclick="showPage('contact')">Start the conversation →</button>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /page-casestudies -->
+
+<!-- ═══════════════════ PAGE: CONTACT ═══════════════════ -->
+<div class="page" id="page-contact">
+
+  <section class="page-hero">
+    <div class="container">
+      <p class="eyebrow animate animate-1">Get in Touch</p>
+      <h1 class="animate animate-2">Let's have an honest<br>conversation</h1>
+      <p class="animate animate-3">No sales pitch. No jargon. Just a straightforward chat about where you are and whether we're the right people to help.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="contact-grid">
+
+        <!-- Contact info -->
+        <div class="contact-info">
+          <h2>We'd love to hear from you</h2>
+          <p>Whether you have a specific project in mind or you're just starting to think about what you need, reach out. The first conversation is always free — and always worth having.</p>
+
+          <div class="contact-details">
+            <div class="contact-item">
+              <div class="contact-item-icon">📧</div>
+              <div>
+                <div class="contact-item-label">Email</div>
+                <div class="contact-item-value">[your email address]</div>
+              </div>
+            </div>
+            <div class="contact-item">
+              <div class="contact-item-icon">📞</div>
+              <div>
+                <div class="contact-item-label">Phone</div>
+                <div class="contact-item-value">[your phone number]</div>
+              </div>
+            </div>
+            <div class="contact-item">
+              <div class="contact-item-icon">💼</div>
+              <div>
+                <div class="contact-item-label">LinkedIn</div>
+                <div class="contact-item-value">linkedin.com/in/[yourhandle]</div>
+              </div>
+            </div>
+            <div class="contact-item">
+              <div class="contact-item-icon">📍</div>
+              <div>
+                <div class="contact-item-label">Location</div>
+                <div class="contact-item-value">Perth, Western Australia</div>
+              </div>
+            </div>
+          </div>
+
+          <div style="margin-top:40px; padding:28px; background:var(--teal-light); border-left:4px solid var(--teal); border-radius:var(--radius);">
+            <p style="font-size:14px; font-weight:700; color:var(--dark); margin-bottom:8px;">Response time</p>
+            <p style="font-size:14px; color:var(--text-lt); line-height:1.65;">We respond to all enquiries within 1 business day. If you send something through on a Friday afternoon, expect to hear from us on Monday morning.</p>
+          </div>
+        </div>
+
+        <!-- Form -->
+        <div class="contact-form-wrap">
+          <div id="contactFormInner">
+            <h3 style="font-size:22px; color:var(--dark); margin-bottom:24px; font-family:var(--serif);">Tell us about your project</h3>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label>First name *</label>
+                <input type="text" placeholder="Jane">
+              </div>
+              <div class="form-group">
+                <label>Last name *</label>
+                <input type="text" placeholder="Smith">
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label>Organisation *</label>
+              <input type="text" placeholder="Organisation name">
+            </div>
+
+            <div class="form-group">
+              <label>Email address *</label>
+              <input type="email" placeholder="jane@organisation.org.au">
+            </div>
+
+            <div class="form-group">
+              <label>Phone (optional)</label>
+              <input type="tel" placeholder="0400 000 000">
+            </div>
+
+            <div class="form-group">
+              <label>What are you looking for help with? *</label>
+              <select>
+                <option value="" disabled selected>Select a service area</option>
+                <option>Communications strategy</option>
+                <option>Marketing strategy & planning</option>
+                <option>Governance support</option>
+                <option>Board communications</option>
+                <option>Stakeholder engagement</option>
+                <option>Digital & content strategy</option>
+                <option>Fractional communications director (retainer)</option>
+                <option>Not sure yet — I'd like a conversation</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label>Tell us a bit about your challenge</label>
+              <textarea placeholder="What's going on? What are you trying to solve or achieve? There are no wrong answers here — the more you share, the better we can help."></textarea>
+            </div>
+
+            <div class="form-group">
+              <label>Approximate budget range (optional)</label>
+              <select>
+                <option value="" disabled selected>Select a range</option>
+                <option>Under $5,000</option>
+                <option>$5,000 – $10,000</option>
+                <option>$10,000 – $25,000</option>
+                <option>$25,000 – $50,000</option>
+                <option>$50,000+</option>
+                <option>Prefer to discuss</option>
+              </select>
+            </div>
+
+            <button class="btn btn-primary" style="width:100%; justify-content:center;" onclick="submitForm()">Send message →</button>
+            <p class="form-note">We'll be in touch within 1 business day. Your information is confidential and will not be shared with third parties.</p>
+          </div>
+
+          <div class="form-success" id="formSuccess">
+            <div class="form-success-icon">✅</div>
+            <h3>Thank you for reaching out.</h3>
+            <p>We've received your message and will be in touch within 1 business day.</p>
+            <p style="margin-top:12px;">In the meantime, feel free to <a onclick="showPage('casestudies')" style="color:var(--teal); cursor:pointer; font-weight:600;">read about our work</a> or <a onclick="showPage('services')" style="color:var(--teal); cursor:pointer; font-weight:600;">explore our services</a>.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="section section-alt">
+    <div class="container">
+      <div class="section-header">
+        <p class="eyebrow">Common Questions</p>
+        <h2 class="section-title">Before you reach out</h2>
+      </div>
+      <div class="faq-list">
+        <div class="faq-item">
+          <button class="faq-question" onclick="toggleFaq(this)">
+            How long does a typical project take?
+            <span class="faq-arrow">+</span>
+          </button>
+          <div class="faq-answer">It depends on the scope and your organisation's availability. A focused project like a communications audit and strategy typically takes 4–6 weeks from kickoff to final delivery. A governance review is usually 3–5 weeks. Retainer engagements are ongoing by design. We'll give you a clear timeline in our proposal before you commit to anything.</div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question" onclick="toggleFaq(this)">
+            Do you work with organisations outside Perth?
+            <span class="faq-arrow">+</span>
+          </button>
+          <div class="faq-answer">Yes. While we're based in Perth, we work with organisations across Western Australia and nationally. Most of our work is conducted remotely — discovery sessions, reviews, and workshops are all done effectively via video call. Where in-person presence is valuable (particularly for governance workshops or community engagement), we can discuss travel arrangements.</div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question" onclick="toggleFaq(this)">
+            What is your minimum project size?
+            <span class="faq-arrow">+</span>
+          </button>
+          <div class="faq-answer">Our minimum engagement for a new project is 4 hours of consulting time ($720–$880 excl. GST depending on the work). In practice, most projects start at $3,500 for a focused piece of work. If you're not sure what you need, a 30-minute discovery call is always free — and sometimes that's all it takes to get clarity.</div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question" onclick="toggleFaq(this)">
+            Do you offer discounts for not-for-profits?
+            <span class="faq-arrow">+</span>
+          </button>
+          <div class="faq-answer">Yes. We apply a 10–15% NFP discount at our discretion for registered not-for-profit organisations. We're also happy to discuss phased payment arrangements or scaled-down scopes if budget is a constraint. We'd rather work with you in a way that fits your budget than not work with you at all.</div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question" onclick="toggleFaq(this)">
+            What happens after we receive our strategy?
+            <span class="faq-arrow">+</span>
+          </button>
+          <div class="faq-answer">All our strategies include an implementation roadmap and a handover session, so you're never left with a document and no idea what to do with it. Many clients choose to continue working with us on a retainer basis for ongoing advisory support and accountability. We can also deliver workshops to help your team embed and activate what we've developed together.</div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question" onclick="toggleFaq(this)">
+            We've had a bad experience with consultants before. Why would this be different?
+            <span class="faq-arrow">+</span>
+          </button>
+          <div class="faq-answer">This is one of the most honest questions we get, and we take it seriously. The most common complaints we hear about consultants are: they didn't listen, they used a template, they handed over a document and disappeared, and it cost too much for too little. Our practice is built specifically to avoid all four of these. We listen before we write. Every plan is built from scratch. We stay until things are actually working. And we're upfront about cost from the very first conversation.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</div><!-- /page-contact -->
+
+<!-- ═══════════════════ FOOTER ═══════════════════ -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="logo">Clearfield Digital</div>
+        <p>Strategic communications, marketing advisory, and governance support for purpose-driven organisations across Australia.</p>
+        <p style="margin-top:16px; font-size:13px; color:var(--text-lt);">Perth, Western Australia<br>ABN: [XX XXX XXX XXX]</p>
+      </div>
+      <div class="footer-col">
+        <h4>Services</h4>
+        <ul>
+          <li><a onclick="showPage('services')">Communications Strategy</a></li>
+          <li><a onclick="showPage('services')">Marketing Strategy</a></li>
+          <li><a onclick="showPage('services')">Governance Support</a></li>
+          <li><a onclick="showPage('services')">Board Communications</a></li>
+          <li><a onclick="showPage('services')">Stakeholder Engagement</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <ul>
+          <li><a onclick="showPage('about')">About</a></li>
+          <li><a onclick="showPage('casestudies')">Our Work</a></li>
+          <li><a onclick="showPage('contact')">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Connect</h4>
+        <ul>
+          <li><a>LinkedIn</a></li>
+          <li><a onclick="showPage('contact')">Get in touch</a></li>
+          <li><a onclick="showPage('contact')">Book a call</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2025 Clearfield Digital. All rights reserved.</p>
+      <p>clearfielddigital.com.au</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+  function showPage(id) {
+    // hide all
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    // show target
+    const target = document.getElementById('page-' + id);
+    if (target) {
+      target.classList.add('active');
+      // force reflow for animations
+      void target.offsetWidth;
+    }
+    // update nav
+    document.querySelectorAll('.nav-links a[data-page]').forEach(a => {
+      a.classList.toggle('active', a.getAttribute('data-page') === id);
+    });
+    // scroll to top
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function toggleFaq(btn) {
+    const item = btn.closest('.faq-item');
+    const wasOpen = item.classList.contains('open');
+    document.querySelectorAll('.faq-item.open').forEach(i => i.classList.remove('open'));
+    if (!wasOpen) item.classList.add('open');
+  }
+
+  function submitForm() {
+    document.getElementById('contactFormInner').style.display = 'none';
+    const success = document.getElementById('formSuccess');
+    success.classList.add('visible');
+    success.style.display = 'block';
+  }
+
+  // Set home as active on load
+  showPage('home');
+</script>
+</body>
+</html>
